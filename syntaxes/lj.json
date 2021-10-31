@@ -1,0 +1,595 @@
+{
+	"fileTypes": [
+		"lj",
+		"lje",
+		"ljm"
+	],
+	"name": "LJ",
+	"scopeName": "source.lj",
+	"patterns": [
+		{
+			"include": "#general"
+		}
+	],
+	"repository": {
+		"general": {
+			"patterns": [
+				{
+					"include": "#line-comment"
+				},
+				{
+					"include": "#block-comment"
+				},
+				{
+					"include": "#number"
+				},
+				{
+					"include": "#constant"
+				},
+				{
+					"include": "#single-quote-string"
+				},
+				{
+					"include": "#double-quote-string"
+				},
+				{
+					"include": "#multi-line-string"
+				},
+				{
+					"include": "#if-block"
+				},
+				{
+					"include": "#for-block"
+				},
+				{
+					"include": "#while-block"
+				},
+				{
+					"include": "#repeat-block"
+				},
+				{
+					"include": "#logic-operator"
+				},
+				{
+					"include": "#operator"
+				},
+				{
+					"include": "#keyword"
+				},
+				{
+					"include": "#table-function"
+				},
+				{
+					"include": "#function"
+				},
+				{
+					"include": "#anonymous-function"
+				},
+				{
+					"include": "#support-function-call"
+				},
+				{
+					"include": "#support-string-function-call"
+				},
+				{
+					"include": "#function-call"
+				},
+				{
+					"include": "#string-function-call"
+				},
+				{
+					"include": "#table"
+				},
+				{
+					"include": "#array"
+				},
+				{
+					"include": "#table-property"
+				},
+				{
+					"include": "#language-variable"
+				},
+				{
+					"include": "#support-library"
+				},
+				{
+					"include": "#support-variable"
+				},
+				{
+					"include": "#variable"
+				},
+				{
+					"include": "#label"
+				}
+			]
+		},
+		"line-comment": {
+			"name": "comment.line.double-dash.lj",
+			"match": "(--)(?!(\\[=*\\[|\\]=*\\])).*$\n?",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.comment.lj"
+				}
+			}
+		},
+		"block-comment": {
+			"name": "comment.block.lj",
+			"begin": "--\\[(=*)\\[",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.lj"
+				}
+			},
+			"end": "\\]\\1\\]",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.lj"
+				}
+			}
+		},
+		"constant": {
+			"name": "constant.language.lj",
+			"match": "\\b(nil|true|false|_G|_VERSION|\\.\\.\\.)\\b"
+		},
+		"number": {
+			"name": "constant.numeric.lj",
+			"match": "(?<![\\d.])\\b0x[a-fA-F\\d]+|\\b\\d+(\\.\\d+)?([eE]-?\\d+)?|\\.\\d+([eE]-?\\d+)?"
+		},
+		"single-quote-string": {
+			"name": "string.quoted.single.lj",
+			"begin": "'",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.lj"
+				}
+			},
+			"end": "'",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\(\\d{1,3}|.)",
+					"name": "constant.character.escape.lj"
+				},
+				{
+					"include": "#interpolation"
+				}
+			]
+		},
+		"interpolation": {
+			"name": "string.interpolation.lj",
+			"begin": "#\\{",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.template-expression.begin.js"
+				}
+			},
+			"end": "\\}|'",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.template-expression.end.js"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"double-quote-string": {
+			"name": "string.quoted.double.lj",
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.lj"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"match": "\\\\(\\d{1,3}|.)",
+					"name": "constant.character.escape.lj"
+				}
+			]
+		},
+		"multi-line-string": {
+			"name": "string.quoted.block.lj",
+			"begin": "\\[(=*)\\[",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.lj"
+				}
+			},
+			"end": "\\]\\1\\]",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.lj"
+				}
+			}
+		},
+		"if-block": {
+			"name": "meta.if-block.lj meta.block.lj",
+			"begin": "\\bif\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"end": "\\bend\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"for-block": {
+			"name": "meta.for-block.lj meta.block.lj",
+			"begin": "\\bfor\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"end": "\\bend\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"while-block": {
+			"name": "meta.while-block.lj meta.block.lj",
+			"begin": "\\bwhile\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"end": "\\bend\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"repeat-block": {
+			"name": "meta.repeat-block.lj meta.block.lj",
+			"begin": "\\brepeat\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"end": "\\buntil\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"logic-operator": {
+			"name": "keyword.operator.logic.lj keyword.control.lj",
+			"match": "\\b(and|or|not)\\b"
+		},
+		"operator": {
+			"name": "keyword.operator.lj",
+			"match": "(\\+|-|%|#|\\*|\\/|\\^|==?|~=|<=?|>=?|(?<!\\.)\\.{2}(?!\\.))"
+		},
+		"keyword": {
+			"name": "keyword.control.lj",
+			"match": "\\b(break|do|else|for|if|elseif|elif|return|then|repeat|while|until|end|local|in|continue|goto)\\b"
+		},
+		"table-function": {
+			"name": "meta.function.lj",
+			"begin": "(?=\\b(?:function|fn)\\s+[_[:alpha:]][_[:alnum:]]*(?:\\.[_[:alpha:]][_[:alnum:]]*)*(?:\\.(?:[_[:alpha:]][_[:alnum:]]*)|:(?:[_[:alpha:]][_[:alnum:]]*)))",
+			"end": "\\bend\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.function-end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#table-function-name"
+				},
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"table-function-name": {
+			"name": "meta.function.lj",
+			"begin": "\\b(function|fn)\\s+(([_[:alpha:]][_[:alnum:]]*(?:\\.[_[:alpha:]][_[:alnum:]]*)*)(?:(\\.)([_[:alpha:]][_[:alnum:]]*)|(:)([_[:alpha:]][_[:alnum:]]*)))",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.function.property.lj"
+				},
+				"3": {
+					"name": "entity.name.function.lj entity.name.function-table.lj"
+				},
+				"4": {
+					"name": "punctuation.accessor.lj"
+				},
+				"5": {
+					"name": "entity.name.function.lj"
+				},
+				"6": {
+					"name": "punctuation.method-accessor.lj"
+				},
+				"7": {
+					"name": "entity.name.method-function.lj entity.name.function.lj"
+				}
+			},
+			"end": "(?<=\\)|\\s+)",
+			"patterns": [
+				{
+					"include": "#parameters"
+				}
+			]
+		},
+		"function": {
+			"name": "meta.function.lj",
+			"begin": "(?=\\b(?:local\\s+)?(?:function|fn)\\s+[_[:alpha:]][_[:alnum:]]*)",
+			"end": "\\bend\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.function-end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#function-name"
+				},
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"function-name": {
+			"name": "meta.function.lj",
+			"begin": "\\b(?:(local)\\s+)?(function|fn)\\s+([_[:alpha:]][_[:alnum:]]*)",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.modifier.local.lj"
+				},
+				"2": {
+					"name": "storage.type.function.lj"
+				},
+				"3": {
+					"name": "entity.name.function.lj"
+				}
+			},
+			"end": "(?<=\\)|\\s+)",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.function-end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#parameters"
+				}
+			]
+		},
+		"anonymous-function": {
+			"name": "meta.function.anonymous.lj",
+			"begin": "(?=\\b(function|fn|do)(?!\\s+[_[:alpha:]][_[:alnum:]]*))",
+			"end": "\\bend\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.control.function-end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#anonymous-function-name"
+				},
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"anonymous-function-name": {
+			"name": "meta.function.anonymous.lj",
+			"begin": "\\b(function|fn|do)\\s*(?!\\s+[_[:alpha:]][_[:alnum:]]*)",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.function.anonymous.lj"
+				}
+			},
+			"end": "(?<=\\)|\\|)",
+			"patterns": [
+				{
+					"include": "#parameters"
+				}
+			]
+		},
+		"parameters": {
+			"name": "meta.parameters.lj",
+			"begin": "\\(|\\|",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.begin.lj"
+				}
+			},
+			"end": "\\)|\\|",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.end.lj"
+				}
+			},
+			"patterns": [
+				{
+					"include":"#line-comment"
+				},
+				{
+					"include":"#block-comment"
+				},
+				{
+					"name": "punctuation.separator.parameter.lj",
+					"match": ","
+				},
+				{
+					"name": "variable.parameter.lj",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				},
+				{
+					"name": "variable.parameter.rest.lj",
+					"match": "\\.\\.\\."
+				}
+			]
+		},
+		"support-function-call": {
+			"begin": "\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\s*(?:[\\({!\\?]|(do))",
+			"beginCaptures": {
+				"1": {
+					"name": "meta.function-call.lj support.function"
+				},
+				"2": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"end": "[\\)}!\\?]|do",
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"support-string-function-call": {
+			"begin": "\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\s*(?=[\\'\"]|\\[\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "meta.function-call.lj support.function"
+				}
+			},
+			"end": "(?<=[\\'\"]|\\]\\])",
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"function-call": {
+			"begin": "(?=(?:[_[:alpha:]][_[:alnum:]]*[\\.:])*)([_[:alpha:]][_[:alnum:]]*)\\s*(?:[\\({!\\?]|(do))",
+			"beginCaptures": {
+				"1": {
+					"name": "meta.function-call.lj entity.name.function"
+				},
+				"2": {
+					"name": "keyword.control.lj"
+				}
+			},
+			"end": "[\\)}!\\?]|do",
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"string-function-call": {
+			"begin": "(?=(?:[_[:alpha:]][_[:alnum:]]*[\\.:])*)([_[:alpha:]][_[:alnum:]]*)\\s*(?=[\\'\"]|\\[\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "meta.function-call.lj entity.name.function"
+				}
+			},
+			"end": "(?<=[\\'\"]|\\]\\])",
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"table": {
+			"name": "meta.table.lj",
+			"begin": "{",
+			"end": "}",
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"array": {
+			"name": "meta.array.lj",
+			"begin": "\\[",
+			"end": "\\]",
+			"patterns": [
+				{
+					"include": "#general"
+				}
+			]
+		},
+		"table-property": {
+			"match": "(\\.)([_[:alpha:]][_[:alnum:]]*)\\b(?!\\s*([\\({\\'\"!\\?]|\\[\\[|(do)))",
+			"captures": {
+				"1": {
+					"name": "punctuation.accessor"
+				},
+				"2": {
+					"name": "variable.other.table.property.lj"
+				},
+				"3": {
+					"name": "keyword.control.lj"
+				}
+			}
+		},
+		"language-variable": {
+			"name": "variable.language.lj",
+			"match": "\\bself|it\\b"
+		},
+		"support-variable": {
+			"name": "support.variable.lj",
+			"match": "\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b"
+		},
+		"variable": {
+			"name": "variable.other.lj",
+			"match": "\\b[_[:alpha:]][_[:alnum:]]*\\b"
+		},
+		"support-library": {
+			"name": "support.function.library.lj",
+			"match": "(?<![^.]\\.|:)\\b(coroutine|string|table|math|io|os|package|debug|jit|love)[\\.:]?(?:[_[:alpha:]][_[:alnum:]]*[\\.:])*\\b"
+		},
+		"label": {
+			"name": "constant.other.placeholder.lj",
+			"match": "(::)[_[:alpha:]][_[:alnum:]]*(::)",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.label.begin.lj"
+				},
+				"2": {
+					"name": "punctuation.definition.label.end.lj"
+				}
+			}
+		}
+	}
+}

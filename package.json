@@ -1,0 +1,26 @@
+{
+    "name": "lj",
+    "displayName": "LJ",
+    "description": "LJ syntax highlighting",
+    "publisher": "kith",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.61.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "lj",
+            "aliases": ["LJ", "lj"],
+            "extensions": [".lj",".lje",".ljm"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "lj",
+            "scopeName": "source.lj",
+            "path": "./syntaxes/lj.json"
+        }]
+    }
+}
